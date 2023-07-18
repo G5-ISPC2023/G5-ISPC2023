@@ -1,0 +1,7 @@
+:root{
+    --azul-ispc: #00a8e1;
+}
+
+body{
+    background-color: var(--azul-ispc) !important;
+}
