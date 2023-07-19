@@ -5,3 +5,15 @@
 body{
     background-color: var(--azul-ispc) !important;
 }
+
+@media (max-width: 768px) {
+    .labelTyc{
+        font-size: 0.9rem;
+    }   
+}
+
+@media (max-width: 768px){
+    .preguntas{
+        font-size: 0.9rem;
+    }
+}
