@@ -60,7 +60,7 @@
         </nav>
     </header>
 
-    <main class="container d-flex flex-column justify-content-center align-items-center vh-100 ">
+    <main class="container my-5 ">
 
         <section class="card col-xl-5">
             <section class="mt-3 text-center">
@@ -69,31 +69,63 @@
             </section>
 
             <form class="px-4 px-sm-5 pb-4">
-                <div class="d-flex justify-content-between">
-                    <div class="">
+                <div class="d-md-flex gap-3 justify-content-center">
+                    <div class="col-md-6">
                         <label class="mt-2"="nombre">Nombre</label>
                         <input class="form-control" type="text" name="nombre" required />
                     </div>
 
-                    <div class="">
+                    <div class="col-md-6">
                         <label class="mt-2"="nombre">Apellido</label>
                         <input class="form-control" type="text" name="nombre" required />
                     </div>
 
                 </div>
 
-                <label class="mt-2"="nombre">DNI</label>
-                <input class="form-control" type="number" name="nombre" required />
+                <div class="d-md-flex gap-3 justify-content-center">
+                    <div class="col-md-6">
+                        <label class="mt-2" for="nombre">DNI</label>
+                        <input class="form-control" type="number" name="nombre" required />
+                    </div>
 
-                <label class="mt-2"="email">Email</label>
-                <input class="form-control" type="text" name="email" required />
+                    <div class="col-md-6">
+                        <label class="mt-2" for="ubicacion">País</label>
+                        <select class="form-select" name="ubicacion" id="ubicacion">
+                            <option selected disabled>Selecciona un pais</option>
+                            <option value="">Argentina</option>
+                            <option value="">Perú</option>
+                            <option value="">España</option>
+                            <option value="">Estados Unidos</option>
+                        </select>
+                    </div>
+                </div>
 
-                <label class="mt-2"="contraseña">Contraseña</label>
-                <input class="form-control" type="password" name="contraseña" required />
+                <div class="d-md-flex gap-3 justify-content-center">
+                    <div class="col-md-6">
+                        <label class="mt-2" for="numero">Telefono</label>
+                        <input class="form-control" type="text" name="numero" required>
+                    </div>
 
-                <label class="mt-2"="contraseña">Repetir contraseña</label>
-                <input class="form-control" type="password" name="contraseña" required />
+                    <div class="col-md-6">
+                        <label class="mt-2" for="email">Email</label>
+                        <input class="form-control" type="text" name="email" required />
+                    </div>
+                </div>
 
+
+
+                <div class="d-md-flex gap-3 justify-content-center">
+                    <div class="col-md-6">
+                        <label class="mt-2"="contraseña">Contraseña</label>
+                        <input class="form-control" type="password" name="contraseña" required />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="mt-2"="contraseña">Repetir contraseña</label>
+                        <input class="form-control" type="password" name="contraseña" required />
+
+                    </div>
+                </div>
                 <input class="mt-3" type="checkbox" name="tyc" required />
                 <label class="labelTyc" for="tyc">Acepto los <a href="#">terminos y condiciones</a></label>
 
