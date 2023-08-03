@@ -32,7 +32,7 @@ button {
     background-color: aliceblue;
 
 }
-@media (max-width: 421px),(max-height: 760px) {
+@media (max-width: 450px),(max-height: 760px) {
     .row1 {
         flex-direction: column;
     }
