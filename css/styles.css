@@ -1,9 +1,0 @@
-/* 
-  This css file is only to have a simple reset. 
-  Only bootstrap was used
-*/
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
