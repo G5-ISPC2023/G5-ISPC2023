@@ -1,0 +1,16 @@
+:root{
+    --azul-ispc: #00a8e1;
+    --negro: #212529;
+}
+
+@media (max-width: 768px) {
+    .labelTyc{
+        font-size: 0.9rem;
+    }   
+}
+
+@media (max-width: 768px){
+    .preguntas{
+        font-size: 0.9rem;
+    }
+}

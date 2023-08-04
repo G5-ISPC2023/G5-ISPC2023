@@ -1,0 +1,31 @@
+:root {
+    --azul-ispc: #00a8e1;
+}
+
+.dashboard {
+    background-color: white;
+}
+
+
+.d-hide-mobile {
+    display: none !important;
+}
+
+@media (min-width: 768px) {
+
+    .d-hide-mobile {
+        display: table-cell !important;
+    }
+}
+
+.table thead{
+    font-size: 0.9rem;
+}
+.table thead button{
+    display: none;
+}
+@media (min-width: 768px) {
+    .table thead button{
+        display: block;
+    }
+}
