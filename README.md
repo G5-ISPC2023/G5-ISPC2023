@@ -1,4 +1,6 @@
 # Instrucciones para trabajar con Angular
+Requisitos que deben cumplir: Tener instalado Nodejs y tener instalado Angular (revisar clase del 03/08) 
+
 ### 1- Clonar la rama "main"
 ### 2- Abrir en Visual Studio Code la carpeta "frontend" ya que este integra el codigo de angular
 ### 3- Adentro de la carpeta "frontend" ejecutar en la terminal "npm install" para instalar todas las dependencias
