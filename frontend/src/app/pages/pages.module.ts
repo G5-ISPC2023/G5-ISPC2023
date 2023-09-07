@@ -13,7 +13,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     CommonModule
   ],
   exports: [
-    LandingPageComponent
+    LandingPageComponent,
     DashboardComponent
   ]
 })
