@@ -13,6 +13,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {path: '', redirectTo:'/home', pathMatch: 'full'},
+      {path: 'home', component: HomeComponent},
       {path: 'login', component: LoginComponent},
       {path: 'register', component: RegisterComponent},
       {path: 'dashboard', component: DashboardComponent}
