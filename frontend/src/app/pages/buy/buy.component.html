@@ -1,0 +1,29 @@
+<div class="row d-flex justify-content-center align-items-center bg-primary">
+  <form *ngIf="!mostrarRecibo" [formGroup]="formularioBuy"
+    class="col-lg-3 bg-black border border-dark border-2 rounded-2 p-3 m-2 row d-flex justify-content-center align-items-center">
+    <label for="Tipo" class="row ps-0 text-light">Tipo de Accion:</label>
+    <select formControlName="tipo" class="form-control-sm m-2" aria-describedby="Tipo">
+      <option *ngFor="let data of listCotizaciones" [value]="data.ultimoPrecio">{{data.simbolo}}</option>
+    </select>
+    <section class="d-flex gap-3 mt-3">
+      <label for="PrecioU" class="ps-0 row text-light">Precio por Unidad:</label>
+      <p class="text-light">{{formularioBuy.controls.tipo.value}}</p>
+    </section>
+    <label for="Cantidad" class="row ps-0 text-light">Cantidad:</label>
+    <input type="number" formControlName="cantidad" class="form-control-sm m-2" aria-describedby="Cantidad" min="1"
+      pattern="0"> <br>
+    <button class="btn btn-primary" [disabled]="formularioBuy.valid" (click)="recibo()">Recibo</button>
+  </form>
+  <div *ngIf="mostrarRecibo"
+    class="col-lg-2 bg-black border border-ligth border-2 p-2 m-2 row d-flex justify-content-center align-items-center">
+    <p class="row text-light">Cantidad:</p>
+    <p class="text-light">{{formularioBuy.controls.cantidad.value}}</p>
+    <p class="row text-light">Precio:</p>
+    <p class="text-light">{{total}}</p>
+    <div class="d-flex inline-flex">
+      <button (click)="volver()" class="btn col-lg-4 btn-primary ">Volver</button>
+      <div class="col-lg-4"></div>
+      <button class="btn btn-primary">Comprar</button>
+    </div>
+  </div>
+</div>

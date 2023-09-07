@@ -18,4 +18,4 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BuyComponent
   ]
 })
-export class BuyModule { }
+export class PagesModule { }
