@@ -7,6 +7,7 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { BuyComponent } from './pages/buy/buy.component';
 
 const routes: Routes = [
   {
@@ -17,7 +18,8 @@ const routes: Routes = [
       {path: 'home', component: LandingPageComponent},
       {path: 'login', component: LoginComponent},
       {path: 'register', component: RegisterComponent},
-      {path: 'dashboard', component: DashboardComponent}
+      {path: 'dashboard', component: DashboardComponent},
+      {path: 'buy', component: BuyComponent},
     ],
   },
   { path: 'notfound', component: NotfoundComponent },
