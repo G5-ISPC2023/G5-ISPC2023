@@ -4,7 +4,15 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [DashboardComponent, HomeComponent],
-  imports: [CommonModule],
+  declarations: [
+    DashboardComponent,
+    HomeComponent
+  ],
+  imports: [
+    CommonModule
+  ],
+  exports: [
+    DashboardComponent
+  ]
 })
-export class PagesModule {}
+export class PagesModule { }
