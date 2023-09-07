@@ -1,0 +1,42 @@
+<section class="container">
+  <form [formGroup]="loginForm" (submit)="login()" class="text-white mx-auto col-lg-5 p-4 card bg-dark">
+    <header class="text-center">
+      <h3 class="mb-0 fw-bold text-uppercase">Iniciar sesión</h3>
+      <p>Rellená todos los campos e ingresá</p>
+    </header>
+    <section class="mb-3">
+      <label for="email">Email</label>
+      <input formControlName="email" class="form-control" type="text" name="email" />
+      <div *ngIf="email.invalid && (email.touched || email.dirty)" class="text-danger p-0 m-0">
+        <div *ngIf="email.errors?.['required']">
+          El email es requerido.
+        </div>
+        <div *ngIf="email.errors?.['email']">
+          El email no es valido.
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-3">
+      <label for="contraseña">Contraseña</label>
+      <input formControlName="password" class="form-control" name="contraseña" type="password" />
+      <div *ngIf="password.invalid && (password.touched || password.dirty)" class="text-danger p-0 m-0 mb-2">
+
+        <div *ngIf="password.errors?.['required']">
+          La contraseña es requerida.
+        </div>
+        <div *ngIf="password.errors?.['password']">
+          La contraseña no es valida.
+        </div>
+
+      </div>
+    </section>
+
+    <button class="btn btn-success form-control" [disabled]="!loginForm.valid">Iniciar sesion</button>
+
+    <footer class="pt-2">
+      <p>¿Aún no te has registrado? <a class="text-decoration text-white" (click)="navigate()">Registrarme</a> </p>
+      <span *ngIf="error.length != 0" class="alert alert-danger form-control mb-0">{{error}}</span>
+    </footer>
+  </form>
+</section>
