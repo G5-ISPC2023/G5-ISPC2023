@@ -1,0 +1,26 @@
+<section class="table-responsive container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Simbolo</th>
+        <th>Compra</th>
+        <th>Venta</th>
+        <th>Ult. precio</th>
+        <th>Maximo</th>
+        <th>Minimo</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let item of listCotizaciones">
+      <tr >
+        <td class="fw-bold">{{item.simbolo}}</td>
+        <td>{{item.puntas.precioCompra ? item.puntas.precioCompra : "-"}}</td>
+        <td>{{item.puntas.precioVenta ? item.puntas.precioVenta : "-"}}</td>
+        <td>{{item.ultimoPrecio ? item.ultimoPrecio : "-"}}</td>
+        <td>{{item.maximo ? item.maximo : "-"}}</td>
+        <td>{{item.minimo ? item.minimo : "-"}}</td>
+        <td class="btn btn-dark btn-sm my-2 p-1"><a (click)="navigate('buy')" class="text-decoration-none">Comprar</a></td>
+      </tr>
+    </tbody>
+  </table>
+</section>

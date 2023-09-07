@@ -19,7 +19,7 @@ export class BuyComponent {
   formularioBuy = this.formBuilder.group ({
     tipo: [0],
     cantidad: [undefined,[Validators.pattern('0')]],
-  }); 
+  });
   constructor (private formBuilder: FormBuilder,
     private cotizacionesService:CotizacionesService){}
 
@@ -28,7 +28,7 @@ ngOnInit(): void{
     }
 
     mostrarRecibo = false;
-  
+
     recibo() {
       this.mostrarRecibo = true;
       this.total=(this.formularioBuy.controls.tipo.value || 0) * (this.formularioBuy.controls.cantidad.value || 0)

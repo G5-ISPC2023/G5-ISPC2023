@@ -38,4 +38,8 @@ export class LoginComponent implements OnInit {
       complete: () => {}
     })
   }
+
+  navigate(){
+    this.route.navigate(['register'])
+  }
 }

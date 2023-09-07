@@ -10,13 +10,19 @@ export class AuthService {
   url:string = "https://reqres.in/api/login"
   userLogged: BehaviorSubject <boolean> = new BehaviorSubject<boolean>(false)
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    const isUserLogged = sessionStorage.getItem('isUserLogged')
+    if(isUserLogged === 'true'){
+      this.userLogged.next(true)
+    }
+   }
 
   login(loginRequest:any):Observable<any>{
     return this.http.post(this.url, loginRequest).pipe(
       tap((token) => {
         if(JSON.stringify(token).length != 0){
           this.userLogged.next(true)
+          sessionStorage.setItem('isUserLogged', 'true')
         }
       }),
       catchError(this.handleError)
@@ -25,6 +31,11 @@ export class AuthService {
 
   register(registerRequest:any): Observable<any>{
     return this.http.post(this.url, registerRequest)
+  }
+
+  logout(){
+    this.userLogged.next(false);
+    sessionStorage.removeItem('isUserLogged')
   }
 
   get isUserLogin(): Observable<boolean>{

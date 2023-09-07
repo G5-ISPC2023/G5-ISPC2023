@@ -32,10 +32,10 @@
       </div>
     </section>
 
-    <button class="btn btn-success form-control">Iniciar sesion</button>
+    <button class="btn btn-success form-control" [disabled]="!loginForm.valid">Iniciar sesion</button>
 
-    <footer>
-      <p>¿Aún no te has registrado? <a href="#">Registrarme</a> </p>
+    <footer class="pt-2">
+      <p>¿Aún no te has registrado? <a class="text-decoration text-white" (click)="navigate()">Registrarme</a> </p>
       <span *ngIf="error.length != 0" class="alert alert-danger form-control mb-0">{{error}}</span>
     </footer>
   </form>

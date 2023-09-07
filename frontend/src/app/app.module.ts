@@ -14,7 +14,7 @@ import { LayoutModule } from './layout/layout.module';
   declarations: [
     AppComponent,
     NotfoundComponent
-  ],
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

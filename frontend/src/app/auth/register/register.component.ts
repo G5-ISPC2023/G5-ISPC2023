@@ -14,10 +14,10 @@ export class RegisterComponent {
 
   registerForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
+    password: ['', Validators.required, Validators.minLength(6)],
     passwordRepeat: ['', Validators.required],
-    nombre: ['', Validators.required, Validators.minLength(4)],
-    apellido: ['', Validators.required, Validators.minLength(4)],
+    nombre: ['', Validators.required],
+    apellido: ['', Validators.required],
     telefono: ['', Validators.required],
     dni: ['', Validators.required],
     pais: ['', Validators.required],
@@ -51,6 +51,10 @@ export class RegisterComponent {
       },
       complete: () => {}
     })
+  }
+
+  navigate(){
+    this.route.navigate(['login'])
   }
 
 }

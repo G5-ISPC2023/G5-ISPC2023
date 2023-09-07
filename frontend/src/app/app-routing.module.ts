@@ -8,6 +8,9 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { BuyComponent } from './pages/buy/buy.component';
+import { CotizacionesComponent } from './pages/cotizaciones/cotizaciones.component';
+import { AuthGuard } from './services/auth.guard';
+import { AboutComponent } from './pages/about/about.component';
 
 const routes: Routes = [
   {
@@ -18,8 +21,10 @@ const routes: Routes = [
       {path: 'home', component: LandingPageComponent},
       {path: 'login', component: LoginComponent},
       {path: 'register', component: RegisterComponent},
-      {path: 'dashboard', component: DashboardComponent},
-      {path: 'buy', component: BuyComponent},
+      {path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
+      {path: 'buy', component: BuyComponent, canActivate:[AuthGuard]},
+      {path: 'cotizaciones', component: CotizacionesComponent},
+      {path: 'about', component: AboutComponent}
     ],
   },
   { path: 'notfound', component: NotfoundComponent },

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
 import { HEADER_ITEMS } from './header-items.constant';
+import { AuthService } from '../../services/auth.service';
+
 
 @Component({
   selector: 'app-header',
@@ -16,24 +17,27 @@ import { HEADER_ITEMS } from './header-items.constant';
             >
               <h1 class="navbar-brand text-primary fw-bolder m-0 p-0">
                 <a class="text-decoration-none" href="/index.html"
-                  >ARGBROKEN.com</a
+                  >ARGBroken.com</a
                 >
               </h1>
               <div class="d-flex align-items-center gap-2">
-                <div class="d-flex gap-1" *ngIf="userLoged">
-                  <span class="fw-bold">{{ username }}</span>
+                <div class="d-flex gap-1" *ngIf="!loginOff">
+                  <span class="fw-bold">Mariano Bazan</span>
                 </div>
                 <a
                   class="btn btn-sm"
-                  *ngIf="showOpenAccount"
+                  *ngIf="loginOff"
                   routerLink="register"
                 >
                   <i class="fa fa-sm fa-user-plus" aria-hidden="true"></i>
                   ABRIR CUENTA
                 </a>
-                <a class="btn btn-sm btn-primary" [routerLink]="handleRoute()">
+                <a class="btn btn-sm btn-primary"
+                routerLink='login'
+                (click)="logout()"
+                >
                   <i class="fa fa-sm fa-lock" aria-hidden="true"></i>
-                  {{ userLoged ? 'Cerrar Sesión' : 'Ingresar' }}
+                  {{ loginOff ? 'Ingresar' : 'Cerrar sesion' }}
                 </a>
                 <button
                   class="btn btn-sm collapsed d-lg-none"
@@ -50,13 +54,33 @@ import { HEADER_ITEMS } from './header-items.constant';
             </div>
             <div class="collapse navbar-collapse" id="navbar">
               <ul class="navbar-nav d-flex justify-content-lg-end w-100 gap-3">
-                <li class="nav-item" *ngFor="let item of items">
-                  <a
-                    class="nav-link p-0"
-                    [routerLink]="item.path"
-                    routerLinkActive="active"
-                    >{{ item.label }}</a
-                  >
+                <li class="nav-item">
+                  <a class="nav-link p-0" routerLink="/">
+                    Inicio
+                  </a>
+                </li>
+
+                <li>
+                <a class="nav-link p-0" routerLink="dashboard" *ngIf="!loginOff">
+                    Dashboard
+                  </a>
+                </li>
+
+                <li>
+                <a class="nav-link p-0" routerLink="cotizaciones">
+                    Cotizaciones
+                  </a>
+
+                </li>
+                <li>
+                  <a class="nav-link p-0" routerLink="about">
+                    Quienes somos
+                  </a>
+                </li>
+                <li>
+                <a class="nav-link p-0" routerLink="buy" *ngIf="!loginOff">
+                    Comprar
+                  </a>
                 </li>
               </ul>
             </div>
@@ -67,31 +91,22 @@ import { HEADER_ITEMS } from './header-items.constant';
   `,
 })
 export class HeaderComponent {
-  constructor(private router: Router) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.showOpenAccount = event.url === '/';
-      }
-    });
-  }
 
-  userLoged: boolean = false;
-  username: string = '';
-  showOpenAccount: boolean = false;
-  items = HEADER_ITEMS;
+  loginOff: boolean = false;
+
+  constructor(private AuthService: AuthService) {
+
+  }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.changeLoged('Mariano Bazan');
-    }, 2000);
+    this.AuthService.isUserLogin.subscribe({
+      next: (isUserLogin: boolean) => {
+        this.loginOff = !isUserLogin
+      }
+    })
   }
-
-  changeLoged(username: string) {
-    this.userLoged = !this.userLoged;
-    this.username = username;
-  }
-
-  handleRoute() {
-    return this.userLoged ? 'auth/logout' : 'auth/login';
+  logout()
+  {
+    this.AuthService.logout()
   }
 }

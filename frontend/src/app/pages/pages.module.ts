@@ -5,12 +5,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { CotizacionesComponent } from './cotizaciones/cotizaciones.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     LandingPageComponent,
-    BuyComponent
+    BuyComponent,
+    CotizacionesComponent,
+    AboutComponent,
   ],
   imports: [
     CommonModule,
@@ -20,6 +24,9 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
   exports: [
     LandingPageComponent,
     DashboardComponent,
+    BuyComponent,
+    CotizacionesComponent,
+    AboutComponent
   ]
 })
 export class PagesModule { }
