@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-
-
 
 @NgModule({
   declarations: [
+    DashboardComponent,
     LandingPageComponent
   ],
   imports: [
@@ -13,6 +14,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
   ],
   exports: [
     LandingPageComponent
+    DashboardComponent
   ]
 })
 export class PagesModule { }
