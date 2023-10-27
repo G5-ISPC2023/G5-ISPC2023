@@ -23,7 +23,7 @@ export class CotizacionesComponent {
   refrescar_cotizacion(){
     this.cotizacionesService.getCotizaciones().subscribe({
       next:( listCotizaciones:Array<any>) => {
-        this.listCotizaciones = listCotizaciones.filter(ob=>ob.puntas !== null);
+        this.listCotizaciones = listCotizaciones;
         console.log(this.listCotizaciones)
       },
       error: error => {

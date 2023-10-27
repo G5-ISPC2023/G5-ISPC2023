@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { HEADER_ITEMS } from './header-items.constant';
 import { AuthService } from '../../services/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 
 @Component({
@@ -21,8 +23,9 @@ import { AuthService } from '../../services/auth.service';
                 >
               </h1>
               <div class="d-flex align-items-center gap-2">
-                <div class="d-flex gap-1" *ngIf="!loginOff">
-                  <span class="fw-bold">Mariano Bazan</span>
+                <div class="d-flex gap-3" *ngIf="!loginOff">
+                <span class="">$ {{usuarioInfo.dinero}}</span>
+                  <span class="fw-bold">{{usuarioInfo.nombre}}</span>
                 </div>
                 <a
                   class="btn btn-sm"
@@ -93,20 +96,36 @@ import { AuthService } from '../../services/auth.service';
 export class HeaderComponent {
 
   loginOff: boolean = false;
+  usuarioInfo: any;
 
-  constructor(private AuthService: AuthService) {
-
-  }
+  constructor(private authService: AuthService, private http: HttpClient, private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
-    this.AuthService.isUserLogin.subscribe({
-      next: (isUserLogin: boolean) => {
-        this.loginOff = !isUserLogin
+    this.authService.userLogged.subscribe((isLoggedIn) => {
+      this.loginOff = !isLoggedIn;
+
+      if (!this.loginOff) {
+        const usuarioId = this.authService.getUsuarioId();
+        if (usuarioId !== null) {
+          this.usuarioService.getUsuarioInfo(usuarioId).subscribe((data) => {
+            this.usuarioInfo = data;
+          });
+        } else {
+          this.usuarioInfo = null;
+        }
+      } else {
+        this.usuarioInfo = null;
       }
-    })
+    });
+
+    this.authService.getUserInfoSubject().subscribe((userInfo) => {
+      this.usuarioInfo = userInfo;
+    });
   }
-  logout()
-  {
-    this.AuthService.logout()
+
+
+  logout() {
+    this.authService.logout();
+    this.usuarioInfo = null;
   }
 }
