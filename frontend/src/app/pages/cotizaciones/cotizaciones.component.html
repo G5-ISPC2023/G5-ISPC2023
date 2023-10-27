@@ -3,22 +3,23 @@
     <thead>
       <tr>
         <th>Simbolo</th>
-        <th>Compra</th>
-        <th>Venta</th>
-        <th>Ult. precio</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
         <th>Maximo</th>
         <th>Minimo</th>
-        <th>Acciones</th>
+        <th>Ult. Cierre</th>
+        <th>Variacion diaria</th>
       </tr>
     </thead>
     <tbody *ngFor="let item of listCotizaciones">
       <tr >
-        <td class="fw-bold">{{item.simbolo}}</td>
-        <td>{{item.puntas.precioCompra ? item.puntas.precioCompra : "-"}}</td>
-        <td>{{item.puntas.precioVenta ? item.puntas.precioVenta : "-"}}</td>
-        <td>{{item.ultimoPrecio ? item.ultimoPrecio : "-"}}</td>
-        <td>{{item.maximo ? item.maximo : "-"}}</td>
-        <td>{{item.minimo ? item.minimo : "-"}}</td>
+        <td class="fw-bold">{{item.nombre}}</td>
+        <td class="{{item.precio > item.ultimoCierre ? 'text-success' : 'text-danger'}}">${{item.precio}}</td>
+        <td>{{item.cantidad}}</td>
+        <td>${{item.maximo}}</td>
+        <td>${{item.minimo}}</td>
+        <td>${{item.ultimoCierre}}</td>
+        <td class="{{item.variacionDiaria < 0 ? 'text-danger': 'text-success'}}">%{{item.variacionDiaria}}</td>
         <td class="btn btn-dark btn-sm my-2 p-1"><a (click)="navigate('buy')" class="text-decoration-none">Comprar</a></td>
       </tr>
     </tbody>
