@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from "@angular/forms"
+import { Component } from '@angular/core';
+import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -8,38 +8,42 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   error: string = "";
 
   loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]]
-  })
+    password: ['', Validators.required]
+  });
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private route: Router) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private route: Router) {
 
-  ngOnInit(): void {
+   }
 
+  get email() { return this.loginForm.get('email')!; }
+  get password() { return this.loginForm.get('password')!; }
+
+  login() {
+    const loginRequest = {
+      email: this.loginForm.value.email,
+      contraseña: this.loginForm.value.password
+    };
+    if (this.loginForm.valid) {
+      this.authService.login(loginRequest).subscribe({
+        next: (value) => {
+          console.log(value);
+          this.authService.setAuthenticated(true);
+          this.route.navigate(['dashboard']);
+        },
+        error: (error) => {
+          this.error = error;
+        },
+        complete: () => {}
+      });
+    }
   }
 
-  get email() { return this.loginForm.controls.email }
-  get password() { return this.loginForm.controls.password }
-
-  login(){
-    this.authService.login(this.loginForm.value).subscribe({
-      next: (value) => {
-        console.log(value)
-        this.route.navigate(['dashboard'])
-      },
-      error: (error) => {
-        console.error(error)
-        this.error = error
-      },
-      complete: () => {}
-    })
-  }
-
-  navigate(){
-    this.route.navigate(['register'])
+  navigate() {
+    this.route.navigate(['register']);
   }
 }

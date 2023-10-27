@@ -6,9 +6,12 @@ import { Observable, throwError, catchError, BehaviorSubject, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-
-  url:string = "https://reqres.in/api/login"
+  private isAuthenticated = false;
+  private usuarioId: number | null =null;
+  url:string = "https://localhost:7098/api/Usuario/login"
+  registro:string = "https://localhost:7098/api/Usuario/register"
   userLogged: BehaviorSubject <boolean> = new BehaviorSubject<boolean>(false)
+  private usuarioInfoSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(private http: HttpClient) {
     const isUserLogged = sessionStorage.getItem('isUserLogged')
@@ -17,38 +20,68 @@ export class AuthService {
     }
    }
 
-  login(loginRequest:any):Observable<any>{
+
+   login(loginRequest: any): Observable<any> {
+
     return this.http.post(this.url, loginRequest).pipe(
-      tap((token) => {
-        if(JSON.stringify(token).length != 0){
-          this.userLogged.next(true)
-          sessionStorage.setItem('isUserLogged', 'true')
-        }
+      tap((response: any) => {
+        this.setAuthenticated(true);
+        this.userLogged.next(true);
+        sessionStorage.setItem('isUserLogged', 'true');
+        this.usuarioId = response.usuarioId;
+        console.log(this.usuarioId)
       }),
       catchError(this.handleError)
-    )
+    );
+  }
+  getUsuarioId(): number | null {
+    return this.usuarioId;
   }
 
-  register(registerRequest:any): Observable<any>{
-    return this.http.post(this.url, registerRequest)
+  getUserInfoSubject(): Observable<any> {
+    return this.usuarioInfoSubject.asObservable();
   }
+
+  setUserInfo(info: any) {
+    this.usuarioInfoSubject.next(info);
+  }
+
+  register(registerRequest: any): Observable<any> {
+
+    return this.http.post(this.registro, registerRequest).pipe(
+      catchError(this.handleError)
+    );
+  }
+
 
   logout(){
-    this.userLogged.next(false);
-    sessionStorage.removeItem('isUserLogged')
+    this.setAuthenticated(false);
+  this.userLogged.next(false);
+  sessionStorage.removeItem('isUserLogged');
   }
 
   get isUserLogin(): Observable<boolean>{
     return this.userLogged.asObservable()
   }
 
+  setAuthenticated(value: boolean) {
+    this.isAuthenticated = value;
+  }
+
+  isAuthenticatedUser(): boolean {
+    return this.isAuthenticated;
+  }
+
   private handleError(error: HttpErrorResponse){
     if(error.status === 0){
       console.error("Ocurrio un error: ", error.error)
-    }else {
+    }else if(error.status === 400){
+      console.error(error.error.mensaje)
+    }
+    else {
       console.error("Backend returned code: ", error.status)
     }
 
-    return throwError(() => new Error("Hubo un error. Intente de nuevo o mas tarde"))
+    return throwError(() => new Error(error.error.mensaje))
   }
 }
