@@ -35,7 +35,10 @@
         <input formControlName="dni" class="form-control" type="text" name="dni" />
         <div *ngIf="dni.invalid && (dni.touched || dni.dirty)" class="text-danger p-0 m-0">
           <div *ngIf="dni.errors?.['required']">
-            El dni es requerido.
+            El DNI es requerido.
+          </div>
+          <div *ngIf="dni.errors?.['dniInvalido']">
+            El DNI debe contener solo números y tener una longitud de 7 u 8 caracteres.
           </div>
         </div>
       </section>
@@ -100,12 +103,11 @@
         <label for="contraseñaRepetida">Repetir contraseña</label>
         <input formControlName="passwordRepeat" class="form-control" name="contraseñaRepetida" type="password" />
         <div *ngIf="passwordRepeat.invalid && (passwordRepeat.touched || passwordRepeat.dirty)" class="text-danger p-0 m-0">
-
           <div *ngIf="passwordRepeat.errors?.['required']">
             La contraseña es requerida.
           </div>
-
         </div>
+
       </section>
 
     </section>
