@@ -80,7 +80,12 @@ namespace API_ARGBroker.Controllers
 
             if (usuario == null)
             {
-                return BadRequest(new { Resultado = "error", Mensaje = "No se ha encontrado coincidencia" });
+                return BadRequest(new { Resultado = "error", Mensaje = "No se ha encontrado un usuario con estas credenciales" });
+            }
+
+            if (usuario.Contraseña != Utilidades.EncriptarClave(loginUsuarioDto.Contraseña))
+            {
+                return BadRequest(new { Resultado = "error", Mensaje = "La contraseña es incorrecta" });
             }
 
             int usuarioId = usuario.Id;
