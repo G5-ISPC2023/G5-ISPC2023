@@ -1,11 +1,11 @@
 <div>
   <h2>Comprar Acción</h2>
 
-  <form #compraForm="ngForm" (ngSubmit)="comprarAccion()">
-    <section class="bg-dark px-4 py-5 text-white d-flex flex-column align-items-center">
+  <form #compraForm="ngForm" *ngIf="!compraExitosa" >
+    <section  class="bg-dark px-4 py-5 text-white d-flex flex-column align-items-center">
       <div class="col-sm-4">
         <label for="accion">Selecciona una Acción:</label>
-        <select class="form-select" id="accion" name="accion" [(ngModel)]="compraData.accionId" required>
+        <select [disabled]="habilitado" class="form-select" id="accion" name="accion" [(ngModel)]="compraData.accionId" required >
           <option value="" disabled>Elige una acción</option>
           <option *ngFor="let accion of listCotizaciones" [value]="accion.id">{{ accion.nombre }}</option>
         </select>
@@ -15,14 +15,21 @@
         <p>Precio: {{ getPrecio(compraData.accionId) | currency }}</p>
       </div>
 
+      <div *ngIf="compraData.accionId">
+        <p>Stock: {{getCantidad(compraData.accionId)}}</p>
+      </div>
+      
+      <div *ngIf="compraData.accionId">
+        <p>Maximo que podes comprar: {{ calcularMaximo(compraData.accionId) }}</p>
+      </div>
+
       <div class="col-sm-4 my-3">
         <label for="cantidad">Cantidad:</label>
-        <input class="form-control" type="number" id="cantidad" name="cantidad" [(ngModel)]="compraData.cantidad"
-          required>
+        <input class="form-control" [readonly]="habilitado" type="number" id="cantidad" name="cantidad" min="1" max="{{ calcularMaximo(compraData.accionId) }}"  [(ngModel)]="compraData.cantidad" required>
       </div>
 
       <div>
-        <button class="btn btn-success" type="submit">Comprar</button>
+        <button class="btn btn-success" type="submit" (click)="generarRecibo()" [disabled]="habilitado">Recibo</button>
       </div>
     </section>
   </form>
@@ -34,9 +41,33 @@
         <p><strong>Acción:</strong> {{ getNombreAccion(compraData.accionId) }}</p>
         <p><strong>Precio:</strong> {{ getPrecio(compraData.accionId) | currency }}</p>
         <p><strong>Cantidad:</strong> {{ compraData.cantidad }}</p>
-        <p><strong>Comision:</strong> {{comision}}%</p>
-        <p><strong>Total:</strong> {{ calcularTotal() | currency }}</p>
+        <p><strong>Porcentaje de Comision:</strong> {{comision}}%</p>
+        <p><strong>Costo de Comision:</strong> {{compraData.costoDecomision | currency}}</p>
+        <p><strong>Total:</strong> {{ calcularTotal(compraData.accionId) | currency }}</p>
+        <button class="btn btn-success" type="submit" (click)="comprarAccion()">Comprar</button>
+        <button class="btn btn-success" type="submit" (click)="volver()">Volver</button>
       </div>
     </section>
+  </div>
+</div>
+
+
+<div *ngIf="compraExitosa" style="display: block; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: black; opacity: 0.8; z-index: 10001;">
+  <div style="display: block; width: 400px; height: 200px; margin: 300px auto; background-color: white; opacity: 1;">
+    <h4 class="modal-title" style="text-align: center">Compra Exitosa</h4><br><br>
+    <div class="modal-body">
+    <p style="text-align: center">Tu compra ha sido exitosa. ¡Gracias por tu compra!</p>
+    </div>
+    <button type="button" class="btn btn-success" aria-label="Cerrar" style="position: absolute; top: 10px; right: 10px;" (click)="cerrarModal()"> <span aria-hidden="true">&times;</span> </button>
+  </div>
+</div>
+
+<div *ngIf="compraFallida" style="display: block; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: black; opacity: 0.8; z-index: 10001;">
+  <div style="display: block; width: 400px; height: 200px; margin: 300px auto; background-color: white; opacity: 1;">
+    <h4 class="modal-title" style="text-align: center">Compra Fallida</h4><br><br>
+    <div class="modal-body">
+    <p style="text-align: center">Tu compra no se pudo realizar, intente mas tarde!</p>
+    </div>
+    <button type="button" class="btn btn-success" aria-label="Cerrar" style="position: absolute; top: 10px; right: 10px;" (click)="cerrarModal()"> <span aria-hidden="true">&times;</span> </button>
   </div>
 </div>

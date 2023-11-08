@@ -14,10 +14,14 @@ export class BuyComponent implements OnInit {
   compraData: any = {
     accionId: null,
     cantidad: 0,
-    usuarioId: this.authService.getUsuarioId()
+    costoDecomision: 0,
+    usuarioId: this.authService.getUsuarioId(),
   };
 
+  habilitado: boolean = false;
   reciboGenerado: boolean = false;
+  compraExitosa: boolean = false;
+  compraFallida: boolean = false;
 
   constructor(private cotizacionesService: CotizacionesService, private authService: AuthService) { }
 
@@ -39,6 +43,11 @@ export class BuyComponent implements OnInit {
       }
     });
   }
+  cerrarModal(){
+    this.compraExitosa = false;
+    this.compraFallida = false;
+    this.volver();
+  }
 
   comprarAccion() {
     if (this.compraData.accionId && this.compraData.cantidad && this.compraData.usuarioId) {
@@ -51,19 +60,35 @@ export class BuyComponent implements OnInit {
       this.cotizacionesService.comprarAccion(compraData).subscribe({
         next: (response: any) => {
           console.log('Compra exitosa:', response);
-          this.reciboGenerado = true;
+          this.reciboGenerado = false;
+          this.compraExitosa = true;
         },
         error: (error) => {
           console.error('Error en la compra:', error);
+          this.reciboGenerado = false;
+          this.compraFallida = true;
         },
       });
     }
   }
-
+  generarRecibo() {
+    this.reciboGenerado = true;
+    this.habilitado = true;
+  }
+  volver(){
+    this.reciboGenerado = false;
+    this.habilitado = false;
+  }
   getPrecio(accionId: number): number {
     const accion = this.listCotizaciones.find(accion => accion.id == accionId);
     console.log(accion)
     return accion ? accion.precio : 0;
+  }
+
+  getCantidad(accionId: number): number {
+    const accion = this.listCotizaciones.find(accion => accion.id == accionId);
+    console.log(accion)
+    return accion ? accion.cantidad : 0;
   }
 
   getNombreAccion(accionId: number): string {
@@ -71,11 +96,20 @@ export class BuyComponent implements OnInit {
     return accion ? accion.nombre : '';
   }
 
-  calcularTotal(): number {
-    const precio = this.getPrecio(this.compraData.accionId);
+  calcularMaximo(accionId: number): number {
+    const precio = this.getPrecio(accionId);
+    return Math.floor(1000268 / precio);
+  }
+
+  calcularTotal(accionId:number): number {
+    const accion = this.listCotizaciones.find(accion => accion.id == accionId);
+    const precio = accion.precio;
     const totalSinComision = precio * this.compraData.cantidad;
-    const comisionPorcentaje = 1.5 / 100;
-    const totalConComision = totalSinComision + (totalSinComision * comisionPorcentaje);
+    const comisionPorcentaje = 0.015;
+    this.compraData.costoDecomision = (totalSinComision * comisionPorcentaje);
+    const totalConComision = totalSinComision + this.compraData.costoDecomision;
     return totalConComision
   }
+
+
 }

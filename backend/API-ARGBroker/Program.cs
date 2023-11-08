@@ -1,5 +1,5 @@
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using API_ARGBroker.Models;
 using System.Text.Json.Serialization;
 using API_ARGBroker.Services.Imp;

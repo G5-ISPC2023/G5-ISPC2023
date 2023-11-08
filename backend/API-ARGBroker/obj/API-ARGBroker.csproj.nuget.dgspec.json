@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\ISPC\\backend\\G5-ISPC2023\\backend\\API-ARGBroker\\API-ARGBroker.csproj": {}
+    "H:\\Visual Studio\\Microsoft Visual Studio\\repos\\G5-ISPC2023\\backend\\API-ARGBroker\\API-ARGBroker.csproj": {}
   },
   "projects": {
-    "C:\\ISPC\\backend\\G5-ISPC2023\\backend\\API-ARGBroker\\API-ARGBroker.csproj": {
+    "H:\\Visual Studio\\Microsoft Visual Studio\\repos\\G5-ISPC2023\\backend\\API-ARGBroker\\API-ARGBroker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ISPC\\backend\\G5-ISPC2023\\backend\\API-ARGBroker\\API-ARGBroker.csproj",
+        "projectUniqueName": "H:\\Visual Studio\\Microsoft Visual Studio\\repos\\G5-ISPC2023\\backend\\API-ARGBroker\\API-ARGBroker.csproj",
         "projectName": "API-ARGBroker",
-        "projectPath": "C:\\ISPC\\backend\\G5-ISPC2023\\backend\\API-ARGBroker\\API-ARGBroker.csproj",
-        "packagesPath": "C:\\Users\\maria\\.nuget\\packages\\",
-        "outputPath": "C:\\ISPC\\backend\\G5-ISPC2023\\backend\\API-ARGBroker\\obj\\",
+        "projectPath": "H:\\Visual Studio\\Microsoft Visual Studio\\repos\\G5-ISPC2023\\backend\\API-ARGBroker\\API-ARGBroker.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "H:\\Visual Studio\\Microsoft Visual Studio\\repos\\G5-ISPC2023\\backend\\API-ARGBroker\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\maria\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
