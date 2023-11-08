@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+
 
 @Component({
   selector: 'app-register',
@@ -10,8 +11,19 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RegisterComponent {
   error: string = "";
-    paises = ["Argentina", "Chile", "Uruguay", "Bolivia", "Paraguay", "Brasil", "Peru", "Colombia", "Ecuador", "Venezuela", "Mexico", "Estados Unidos"]
+  paises = ["Argentina", "Chile", "Uruguay", "Bolivia", "Paraguay", "Brasil", "Peru", "Colombia", "Ecuador", "Venezuela", "Mexico", "Estados Unidos"]
 
+  async dniValidator(control: AbstractControl) {
+    const dniValue = control.value
+
+    const dniRegex = /^[0-9]{7,8}$/;
+
+    if (!dniRegex.test(dniValue)) {
+      return { dniInvalido: true };
+    }
+
+    return null;
+  }
   registerForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
@@ -19,7 +31,7 @@ export class RegisterComponent {
     nombre: ['', Validators.required],
     apellido: ['', Validators.required],
     telefono: ['', Validators.required],
-    dni: ['', Validators.required],
+    dni: ['', Validators.required, this.dniValidator],
     pais: ['', Validators.required],
     tyc: ['', Validators.required]
   });
@@ -59,7 +71,7 @@ export class RegisterComponent {
           console.error(error);
           this.error = error.error.mensaje;
         },
-        complete: () => {}
+        complete: () => { }
       });
     }
   }
